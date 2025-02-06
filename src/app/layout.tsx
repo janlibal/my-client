@@ -1,9 +1,9 @@
-import type { Metadata } from "next"
-import "./styles.css"
-import Link from "next/link"
+import type { Metadata } from 'next'
+import './styles.css'
+import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: "Read Only Blog",
+  title: 'Read Only Blog',
 }
 
 export default function RootLayout({

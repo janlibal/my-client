@@ -1,3 +1,3 @@
 export default function TodosPage() {
-    return <h1>Todos page</h1>
-  }
+  return <h1>Todos page</h1>
+}
