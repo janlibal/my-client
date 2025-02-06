@@ -1,8 +1,12 @@
-export async function getPostComments(postId: string | number) {
+import { commentsData } from './data/comments.data'
+
+export async function getPostComments(postId: number) {
   await wait(2000)
+  return commentsData.filter((a) => a.postId == postId)
+  /*await wait(2000)
   return fetch(`${process.env.API_URL}/posts/${postId}/comments`)
     .then((res) => res.json())
-    .then((data) => data as Comment[])
+    .then((data) => data as Comment[])*/
 }
 
 function wait(duration: number) {

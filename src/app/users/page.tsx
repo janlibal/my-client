@@ -17,7 +17,7 @@ export default async function UsersPage() {
               <div>{user.email}</div>
             </div>
             <div className="card-footer">
-              <Link className="btn" href={`users/${user.id.toString()}`}>
+              <Link className="btn" href={`users/${user.id}`}>
                 View
               </Link>
             </div>

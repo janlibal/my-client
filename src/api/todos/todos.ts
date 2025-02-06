@@ -9,11 +9,12 @@ export async function getTodos() {
   return todosData
 }
 
-export async function getUserTodos(userId: string | number) {
-  await wait(2000)
+export async function getUserTodos(userId: number) {
+  return todosData.filter((a) => a.userId === userId)
+  /*await wait(2000)
   return fetch(`${process.env.API_URL}/todos?userId=${userId}`)
     .then((res) => res.json())
-    .then((data) => data as Todo[])
+    .then((data) => data as Todo[])*/
 }
 
 function wait(duration: number) {
