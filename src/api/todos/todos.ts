@@ -1,14 +1,12 @@
-type Todo = {
-  id: number
-  title: string
-  completed: boolean
-}
+import { todosData } from './data/todos.data'
+import { Todo } from './types/todos.type'
 
 export async function getTodos() {
-  await wait(2000)
+  /*await wait(2000)
   return fetch(`${process.env.API_URL}/todos`)
     .then((res) => res.json())
-    .then((data) => data as Todo[])
+    .then((data) => data as Todo[])*/
+  return todosData
 }
 
 export async function getUserTodos(userId: string | number) {

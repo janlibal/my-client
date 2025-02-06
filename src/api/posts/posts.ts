@@ -1,5 +1,5 @@
-import { postsData } from "./data/posts.data"
-import { Post } from "./types/posts.type"
+import { postsData } from './data/posts.data'
+import { Post } from './types/posts.type'
 
 export async function getPosts() {
   /*await wait(2000)
