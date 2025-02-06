@@ -1,24 +1,12 @@
-type User = {
-  id: number
-  name: string
-  email: string
-  website: string
-  address: {
-    city: string
-    street: string
-    zipcode: string
-    suite: string
-  }
-  company: {
-    name: string
-  }
-}
+import { usersData } from './data/users.data'
+import { User } from './types/users.type'
 
 export async function getUsers() {
-  await wait(2000)
+  /*await wait(2000)
   return fetch(`${process.env.API_URL}/users`)
     .then((res) => res.json())
-    .then((data) => data as User[])
+    .then((data) => data as User[])*/
+  return usersData
 }
 
 export async function getUser(userId: string | number) {

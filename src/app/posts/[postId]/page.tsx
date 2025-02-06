@@ -1,6 +1,6 @@
-import { getPostComments } from '@/api/comments'
+import { getPostComments } from '@/api/comments/comments'
 import { getPost } from '@/api/posts/posts'
-import { getUser } from '@/api/users'
+import { getUser } from '@/api/users/users'
 import { Skeleton, SkeletonList } from '@/components/Skeleton'
 import Link from 'next/link'
 import { Suspense } from 'react'
