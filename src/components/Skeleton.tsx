@@ -1,4 +1,4 @@
-import { Fragment, ReactNode, Suspense } from "react"
+import { Fragment, ReactNode, Suspense } from 'react'
 
 export function Skeleton({
   short,
@@ -11,8 +11,8 @@ export function Skeleton({
     <div
       className="skeleton"
       style={{
-        width: short ? "15em" : undefined,
-        display: inline ? "inline-block" : undefined,
+        width: short ? '15em' : undefined,
+        display: inline ? 'inline-block' : undefined,
       }}
     />
   )

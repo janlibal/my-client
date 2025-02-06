@@ -1,5 +1,5 @@
-import Link from "next/link"
-import { Skeleton, SkeletonButton } from "./Skeleton"
+import Link from 'next/link'
+import { Skeleton, SkeletonButton } from './Skeleton'
 
 export function PostCard({
   id,
