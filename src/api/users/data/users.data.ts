@@ -1,6 +1,6 @@
 import { User } from '../types/users.type'
 
-export const usersData: User[] = [
+export const users: User[] = [
   {
     id: 1,
     name: 'Jan Libal',
@@ -13,7 +13,7 @@ export const usersData: User[] = [
       suite: 'A',
     },
     company: {
-      name: 'LibalDesign',
+      name: 'JanLibalCo',
     },
   },
 ]

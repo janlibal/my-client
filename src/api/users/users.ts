@@ -1,18 +1,17 @@
-import { usersData } from './data/users.data'
-import { User } from './types/users.type'
+import { users } from './data/users.data'
 
 export async function getUsers() {
   /*await wait(2000)
   return fetch(`${process.env.API_URL}/users`)
     .then((res) => res.json())
     .then((data) => data as User[])*/
-  await wait(1000)
-  return usersData
+  await wait(5000)
+  return users
 }
 
 export async function getUser(userId: string | number) {
-  await wait(1000)
-  return usersData.find((user) => user.id === userId)
+  await wait(5000)
+  return users.find((a) => a.id === Number(userId))
   /*await wait(2000)
   return fetch(`${process.env.API_URL}/users/${userId}`)
     .then((res) => res.json())
