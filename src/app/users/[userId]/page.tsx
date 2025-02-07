@@ -1,13 +1,12 @@
 import { getUserPosts } from '@/api/posts/posts'
 import { getUserTodos } from '@/api/todos/todos'
-import { usersData } from '@/api/users/data/users.data'
 import { getUser } from '@/api/users/users'
 import { PostCard, SkeletonPostCard } from '@/components/PostCard'
 import { Skeleton, SkeletonList } from '@/components/Skeleton'
 import { TodoItem } from '@/components/TodoItem'
 import { Suspense } from 'react'
 
-export default function UserPage({
+export default async function UserPage({
   params: { userId },
 }: {
   params: { userId: number }
@@ -70,21 +69,22 @@ export default function UserPage({
 
 async function UserDetails({ userId }: { userId: number }) {
   const user = await getUser(userId)
+  if (!user) return <h3>No user found</h3>
 
   return (
     <>
-      <h1 className="page-title">{user?.name}</h1>
-      <div className="page-subtitle">{user?.email}</div>
+      <h1 className="page-title">{user.name}</h1>
+      <div className="page-subtitle">{user.email}</div>
       <div>
-        <b>Company:</b> {user?.company.name}
+        <b>Company:</b> {user.company.name}
       </div>
       <div>
-        <b>Website:</b> {user?.website}
+        <b>Website:</b> {user.website}
       </div>
       <div>
         <b>Address:</b>{' '}
-        {`${user?.address.street} ${user?.address.suite}
-    ${user?.address.city} ${user?.address.zipcode}`}
+        {`${user.address.street} ${user.address.suite}
+    ${user.address.city} ${user.address.zipcode}`}
       </div>
     </>
   )
@@ -92,6 +92,7 @@ async function UserDetails({ userId }: { userId: number }) {
 
 async function UserPosts({ userId }: { userId: number }) {
   const posts = await getUserPosts(userId)
+  if (!posts) return <h3>No posts for this user</h3>
 
   return posts.map((post) => <PostCard key={post.id} {...post} />)
 }

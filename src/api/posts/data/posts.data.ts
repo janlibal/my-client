@@ -1,16 +1,28 @@
 import { Post } from '../types/posts.type'
 
-export const postsData: Post[] = [
+export const posts: Post[] = [
   {
     id: 1,
     title: 'First post',
-    body: 'First body',
+    body: 'Here goes description, a body if you will, for the first post!',
     userId: 1,
   },
   {
     id: 2,
     title: 'Second post',
-    body: 'Second body',
+    body: 'Here goes description, a body if you will, for the second post!',
+    userId: 1,
+  },
+  {
+    id: 3,
+    title: 'Third post',
+    body: 'Here goes description, a body if you will, for the third post!',
+    userId: 1,
+  },
+  {
+    id: 4,
+    title: 'Fourth post',
+    body: 'Here goes description, a body if you will, for the fourth post!',
     userId: 1,
   },
 ]

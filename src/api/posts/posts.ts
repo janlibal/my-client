@@ -1,29 +1,18 @@
-import { postsData } from './data/posts.data'
-import { Post } from './types/posts.type'
+import { posts } from './data/posts.data'
 
 export async function getPosts() {
-  /*await wait(2000)
-    return fetch(`${process.env.API_URL}/posts`)
-      .then(res => res.json())
-      .then(data => data as Post[])*/
-  return postsData
+  await wait(5000)
+  return posts
 }
 
-export async function getPost(postId: string | number) {
-  await wait(2000)
-  return postsData.find((a) => a.id === postId)
-  /*
-  return fetch(`${process.env.API_URL}/posts/${postId}`)
-    .then((res) => res.json())
-    .then((data) => data as Post)*/
+export async function getUserPosts(userId: number) {
+  await wait(5000)
+  return posts.filter((posts) => posts.userId === Number(userId))
 }
 
-export async function getUserPosts(userId: string | number) {
-  return postsData.filter((a) => a.userId === userId)
-  /*await wait(2000)
-  return fetch(`${process.env.API_URL}/posts?userId=${userId}`)
-    .then((res) => res.json())
-    .then((data) => data as Post[])*/
+export async function getPost(postId: number) {
+  await wait(5000)
+  return posts.find((a) => a.id === Number(postId))
 }
 
 function wait(duration: number) {

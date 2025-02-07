@@ -1,16 +1,17 @@
-import { todosData } from './data/todos.data'
-import { Todo } from './types/todos.type'
+import { todos } from './data/todos.data'
 
 export async function getTodos() {
   /*await wait(2000)
   return fetch(`${process.env.API_URL}/todos`)
     .then((res) => res.json())
     .then((data) => data as Todo[])*/
-  return todosData
+  await wait(5000)
+  return todos
 }
 
 export async function getUserTodos(userId: number) {
-  return todosData.filter((a) => a.userId === userId)
+  await wait(5000)
+  return todos.filter((todos) => todos.userId === Number(userId))
   /*await wait(2000)
   return fetch(`${process.env.API_URL}/todos?userId=${userId}`)
     .then((res) => res.json())
