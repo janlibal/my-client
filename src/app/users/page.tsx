@@ -1,4 +1,4 @@
-import { getUsers } from '@/api/users/users'
+import { getUsers } from '@/api/modules/users/users'
 import Link from 'next/link'
 
 export default async function UsersPage() {

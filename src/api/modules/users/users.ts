@@ -1,3 +1,4 @@
+import { timeout } from '@/api/core/api.settings'
 import { users } from './data/users.data'
 
 export async function getUsers() {
@@ -5,12 +6,12 @@ export async function getUsers() {
   return fetch(`${process.env.API_URL}/users`)
     .then((res) => res.json())
     .then((data) => data as User[])*/
-  await wait(5000)
+  await wait(timeout)
   return users
 }
 
 export async function getUser(userId: string | number) {
-  await wait(5000)
+  await wait(timeout)
   return users.find((a) => a.id === Number(userId))
   /*await wait(2000)
   return fetch(`${process.env.API_URL}/users/${userId}`)
