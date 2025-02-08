@@ -1,4 +1,4 @@
-import { getPosts } from '@/api/posts/posts'
+import { getPosts } from '@/api/modules/posts/posts'
 import { PostCard } from '@/components/PostCard'
 
 export default async function PostsPage() {
