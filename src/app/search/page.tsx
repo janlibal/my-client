@@ -3,7 +3,7 @@
 import { data } from '@/api/modules/search/data/search.data'
 import { iProfile } from '@/api/modules/search/interfaces/search.interface'
 import { ProfileCard } from '@/components/ProfileCard'
-import { SearchInput } from '@/components/SearchBar'
+import { SearchInput } from '@/components/SearchInput'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
