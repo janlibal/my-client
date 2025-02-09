@@ -15,8 +15,11 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <nav className="top-nav">
-          <div className="nav-text-large">goodStack!</div>
+          <div className="nav-text-large">smartBUY</div>
           <ul className="nav-list">
+            <li>
+              <Link href="/products">Products</Link>
+            </li>
             <li>
               <Link href="/search">Search</Link>
             </li>
