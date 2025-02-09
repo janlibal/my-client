@@ -25,9 +25,9 @@ export const SearchInput = ({ defaultValue }: iDefault) => {
   // We are now routing the search results to another page but still on the same page
 
   const handleSearch = () => {
-    if (inputValue) return router.push(`/?q=${inputValue}`)
+    if (inputValue) return router.push(`/search?q=${inputValue}`)
 
-    if (!inputValue) return router.push('/')
+    if (!inputValue) return router.push('/search')
   }
 
   const handleKeyPress = (event: { key: any }) => {
@@ -36,7 +36,7 @@ export const SearchInput = ({ defaultValue }: iDefault) => {
 
   return (
     <div className="search__input border-[2px] border-solid border-slate-500 flex flex-row items-center gap-5 p-1 rounded-[15px]">
-      <label htmlFor="inputId">searchIcon -- </label>
+      <label htmlFor="inputId">searchIcon</label>
 
       <input
         type="text"
