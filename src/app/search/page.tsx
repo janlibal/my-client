@@ -22,6 +22,15 @@ export default function SearchPage() {
   useEffect(() => {
     const handleSearch = () => {
       // Filter the data based on search query
+
+      const filteredByName = data.filter((user) => {
+        if (searchQuery) {
+          return searchQuery.toLowerCase().includes(user.name.toLowerCase())
+        } else {
+          return true
+        }
+      })
+
       const findUser = data.filter((user) => {
         if (searchQuery) {
           return (
@@ -37,7 +46,7 @@ export default function SearchPage() {
       })
 
       // Update profileData based on search results
-      setProfileData(findUser)
+      setProfileData(filteredByName)
     }
 
     // Call handleSearch when searchQuery changes
