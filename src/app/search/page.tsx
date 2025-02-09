@@ -8,41 +8,20 @@ import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 export default function SearchPage() {
+  // initialize useState for the data
   const [profileData, setProfileData] = useState<iProfile[]>([])
 
-  useEffect(() => {
-    // will be updated soon
-
-    setProfileData(data)
-  }, [])
-
-  // get total users
-
-  const totalUser = profileData.length
+  // initialise the searchParams hook
 
   const searchParams = useSearchParams()
 
-  const searchQuery = searchParams && searchParams.get('q') // we use `q` to set the query to the browser, it could be anything
+  // Now get the query
+
+  const searchQuery = searchParams && searchParams.get('q')
 
   useEffect(() => {
     const handleSearch = () => {
       // Filter the data based on search query
-
-      //const findUsersByNames = data.filter(user => searchQuery?.includes(user.name))
-      const findUsersByNames = data.filter((user) => {
-        if (searchQuery) {
-          return searchQuery
-            .toLowerCase()
-            .includes(
-              user.name.toLowerCase() ||
-                user.username.toLowerCase() ||
-                user.email.toLowerCase()
-            )
-        } else {
-          return true
-        }
-      })
-
       const findUser = data.filter((user) => {
         if (searchQuery) {
           return (
@@ -53,20 +32,21 @@ export default function SearchPage() {
           )
         } else {
           // If no search query, return the original data
-
           return true
         }
       })
 
       // Update profileData based on search results
-
-      setProfileData(findUsersByNames)
+      setProfileData(findUser)
     }
 
     // Call handleSearch when searchQuery changes
-
     handleSearch()
-  }, [searchQuery])
+  }, [searchQuery]) // Only rerun the effect if searchQuery changes
+
+  // get total users
+
+  const totalUser = profileData.length
 
   return (
     <section className="h-[100vh] w-screen px-[2rem] md:px-[6rem] mt-[100px]">
@@ -79,7 +59,6 @@ export default function SearchPage() {
       {/* // Conditionally render the profile cards */}
 
       <div className="mt-8">
-        <h5>query: (content): {searchQuery}</h5>
         {totalUser === 0 ? (
           <p>No result returned</p>
         ) : (
