@@ -23,9 +23,9 @@ export default function ProductsPage() {
     const handleSearch = () => {
       // Filter the data based on search query
 
-      const filteredByName = products.filter((user) => {
+      const filteredByName = products.filter((product) => {
         if (searchQuery) {
-          return searchQuery.toLowerCase().includes(user.title.toLowerCase())
+          return searchQuery.toLowerCase().includes(product.title.toLowerCase())
         } else {
           return true
         }
