@@ -52,10 +52,17 @@ export default function BandsPage() {
         return acc
       }, {} as Record<string, any[]>)
 
-      const matchingLocations = Array.from(new Set(filteredByGenre.map((item) => item.location)))
+      const matchingLocations = Array.from(new Set(filteredByGenre.map((item) => {
+        return item.location
+      })))
+
+      const uniqueLocations = [...new Set(filteredByGenre.map((item) => item.location))]
+
+      /*const s = new Set(matchingLocations)
+      const uniqueLocations = [...s]*/
 
       setGroupedBands(groupedByLocation) // Set grouped bands state
-      setLocations(matchingLocations)
+      setLocations(uniqueLocations)
 
     } else {
       setFilteredBands(music) // If no genres specified, show all bands
@@ -78,6 +85,10 @@ export default function BandsPage() {
       router.push('/bands') // If search is empty, reset the URL (remove query)
     }
   }
+
+  const totalBands = filteredBands.length
+  const availableLocations = locations.length
+
   return (
     <>
       <h1>Welcome to Coding Beauty</h1>
@@ -96,7 +107,7 @@ export default function BandsPage() {
       <br />
 
       {/* Display the filtered bands */}
-      <h3>Filtered Bands:</h3>
+      <h3>Filtered Bands: ({totalBands})</h3>
       {filteredBands.length > 0 ? (
         <ul>
           {filteredBands.map((band, index) => (
@@ -107,6 +118,20 @@ export default function BandsPage() {
         </ul>
       ) : (
         <b>No bands found for the selected genres</b>
+      )}
+
+      <br />
+
+      <h3>Available Locations: ({availableLocations})</h3>
+      {locations.length > 0 ? (
+        <ul>
+          {locations.map((location, index) => (
+            <li key={index}>{location}
+            </li>
+        ))}
+      </ul>
+      ) : (
+        <b>No locations found for the selected genres</b>
       )}
 
       <br />
@@ -128,20 +153,6 @@ export default function BandsPage() {
         ))
       ) : (
         <b>No bands found for the selected genres</b>
-      )}
-
-      <br />
-
-      <h3>Matching Locations:</h3>
-      {locations.length > 0 ? (
-        <ul>
-          {locations.map((location, index) => (
-            <li key={index}>{location}
-            </li>
-        ))}
-      </ul>
-      ) : (
-        <b>No locations found for the selected genres</b>
       )}
     </>
   )
