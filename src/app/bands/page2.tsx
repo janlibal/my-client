@@ -28,13 +28,18 @@ export default function BandsPage() {
 
     if (genres.length > 0) {
       // Filter the bands based on the selected genres
-      const filteredByGenre = music.filter((item) => genres.includes(item.genre))
+      const filteredByGenre = music.filter((item) =>
+        genres.includes(item.genre)
+      )
 
       // Count the occurrences of each location
-      const locationCount = filteredByGenre.reduce((acc, item) => {
-        acc[item.location] = (acc[item.location] || 0) + 1
-        return acc
-      }, {} as Record<string, number>)
+      const locationCount = filteredByGenre.reduce(
+        (acc, item) => {
+          acc[item.location] = (acc[item.location] || 0) + 1
+          return acc
+        },
+        {} as Record<string, number>
+      )
 
       // Sort locations by frequency in descending order
       const sortedLocations = Object.entries(locationCount)

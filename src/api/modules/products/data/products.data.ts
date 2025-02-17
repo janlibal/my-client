@@ -1,6 +1,7 @@
 import { Product } from '../types/products.types'
 
 export const products: Product[] = [
+  { id: 0, title: 'aaa', priceInCents: 0, store: 'aaa' },
   { id: 1, title: 'iPhone 12', priceInCents: 400, store: 'bestbuy' },
   { id: 2, title: 'iPhone 12 Mini', priceInCents: 400, store: 'bestbuy' },
   { id: 3, title: 'iPhone 12 Pro', priceInCents: 400, store: 'bestbuy' },

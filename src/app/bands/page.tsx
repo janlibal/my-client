@@ -4,11 +4,11 @@ import { useSearchParams, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 const music = [
-  { name: 'Green day', genre: 'punk', location: 'San Francisco' },
+  { name: 'Green day', genre: 'Punk', location: 'San Francisco' },
   { name: 'Bon Jovi', genre: 'rock', location: 'New Jersey' },
   { name: 'Orianthi', genre: 'blues', location: 'New Orleans' },
   { name: 'Michael Jackson', genre: 'pop', location: 'Los Angeles' },
-  { name: 'The Offspring', genre: 'punk', location: 'San Francisco' },
+  { name: 'The Offspring', genre: 'Punk', location: 'San Francisco' },
   { name: 'Aerosmith', genre: 'rock', location: 'Boston' },
 ]
 
@@ -27,47 +27,60 @@ export default function BandsPage() {
     // Split query by commas and filter out empty genres
     const genres =
       searchQuery.trim() !== ''
-        ? searchQuery.split(',').map((genre) => genre.trim())
+        ? searchQuery.split(',').map((genre) => genre.trim().toLowerCase()) // Clean and lowercase genres
         : []
 
     if (genres.length > 0) {
       // Filter the bands based on the selected genres
-      const filteredByGenre = music.filter((item) => genres.includes(item.genre))
+      const filteredByGenre = music.filter(
+        (item) => genres.includes(item.genre.trim().toLowerCase()) // Clean and lowercase item genre
+      )
 
       // Count the occurrences of each location
-      const locationCount = filteredByGenre.reduce((acc, item) => {
-        acc[item.location] = (acc[item.location] || 0) + 1
-        return acc
-      }, {} as Record<string, number>)
+      const locationCount = filteredByGenre.reduce(
+        (acc, item) => {
+          acc[item.location] = (acc[item.location] || 0) + 1
+          return acc
+        },
+        {} as Record<string, number>
+      )
 
       // Set the filtered bands to be sorted by location count (keeping as array)
       setFilteredBands(filteredByGenre)
 
-       // Group the filtered bands by location and update the state
-      const groupedByLocation = filteredByGenre.reduce((acc, band) => {
-        if (!acc[band.location]) {
-          acc[band.location] = []
-        }
-        acc[band.location].push(band)
-        return acc
-      }, {} as Record<string, any[]>)
+      // Group the filtered bands by location and update the state
+      const groupedByLocation = filteredByGenre.reduce(
+        (acc, band) => {
+          if (!acc[band.location]) {
+            acc[band.location] = []
+          }
+          acc[band.location].push(band)
+          return acc
+        },
+        {} as Record<string, any[]>
+      )
 
-      const matchingLocations = Array.from(new Set(filteredByGenre.map((item) => {
-        return item.location
-      })))
+      const matchingLocations = Array.from(
+        new Set(
+          filteredByGenre.map((item) => {
+            return item.location
+          })
+        )
+      )
 
-      const uniqueLocations = [...new Set(filteredByGenre.map((item) => item.location))]
+      const uniqueLocations = [
+        ...new Set(filteredByGenre.map((item) => item.location)),
+      ]
 
       /*const s = new Set(matchingLocations)
       const uniqueLocations = [...s]*/
 
       setGroupedBands(groupedByLocation) // Set grouped bands state
       setLocations(uniqueLocations)
-
     } else {
       setFilteredBands(music) // If no genres specified, show all bands
       setGroupedBands({})
-      setLocations(music.map(a => a.location))
+      setLocations(music.map((a) => a.location))
     }
   }, [searchQuery])
 
@@ -126,10 +139,9 @@ export default function BandsPage() {
       {locations.length > 0 ? (
         <ul>
           {locations.map((location, index) => (
-            <li key={index}>{location}
-            </li>
-        ))}
-      </ul>
+            <li key={index}>{location}</li>
+          ))}
+        </ul>
       ) : (
         <b>No locations found for the selected genres</b>
       )}
