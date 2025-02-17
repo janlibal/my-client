@@ -24,21 +24,30 @@ export default function BandsPage() {
 
   useEffect(() => {
     // Split query by commas and filter out empty genres
-    const genres = searchQuery.trim() !== '' ? searchQuery.split(',').map((genre) => genre.trim()) : []
+    const genres =
+      searchQuery.trim() !== ''
+        ? searchQuery.split(',').map((genre) => genre.trim())
+        : []
 
     // If genres are provided, filter the bands
     if (genres.length > 0) {
-      const filteredByGenre = music.filter((item) => genres.includes(item.genre))
+      const filteredByGenre = music.filter((item) =>
+        genres.includes(item.genre)
+      )
 
-      const matchingLocations = Array.from(new Set(filteredByGenre.map((item) => item.location)))
+      const matchingLocations = Array.from(
+        new Set(filteredByGenre.map((item) => item.location))
+      )
 
-      const result = filteredByGenre.filter((item) => matchingLocations.includes(item.location))
+      const result = filteredByGenre.filter((item) =>
+        matchingLocations.includes(item.location)
+      )
 
       setFilteredBands(result)
       setLocations(matchingLocations)
     } else {
       setFilteredBands(music) // If no genres specified, show all bands
-      setLocations(Array.from(new Set(music.map((item) => item.location)))) 
+      setLocations(Array.from(new Set(music.map((item) => item.location))))
     }
   }, [searchQuery])
 
@@ -56,7 +65,6 @@ export default function BandsPage() {
       router.push('/bands') // If search is empty, reset the URL (remove query)
     }
   }
-
 
   return (
     <>
@@ -93,10 +101,9 @@ export default function BandsPage() {
       {locations.length > 0 ? (
         <ul>
           {locations.map((location, index) => (
-            <li key={index}>{location}
-            </li>
-        ))}
-      </ul>
+            <li key={index}>{location}</li>
+          ))}
+        </ul>
       ) : (
         <b>No locations found for the selected genres</b>
       )}
