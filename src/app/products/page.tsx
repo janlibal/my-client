@@ -5,6 +5,12 @@ import { Product } from '@/api/modules/products/types/products.types'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
+declare global {
+  interface Array<T> {
+    hasMin(attrib: string): Product | null
+  }
+}
+
 export default function ProductsPage() {
   const searchParams = useSearchParams()
   const router = useRouter()
@@ -16,6 +22,7 @@ export default function ProductsPage() {
   const [stores, setStores] = useState<string[]>([])
   const [groupedByStore, setGroupStore] = useState<Record<string, any[]>>({})
   const [groupedByState, setGroupState] = useState<Record<string, any[]>>({})
+  const [minPrice, setMinPrice] = useState<Product | undefined>()
 
   useEffect(() => {
     const queriedProducts =
@@ -28,28 +35,30 @@ export default function ProductsPage() {
         queriedProducts.includes(item.title.trim().toLowerCase())
       )
 
-      const minPrice = filteredByTitle.reduce(function(prev, curr) {
-        return prev.priceInCents < curr.priceInCents ? prev : curr
-      })
+      Array.prototype.hasMin = function (
+        this: Product[],
+        attrib: string
+      ): Product | null {
+        const checker = (o: any, i: string) => typeof o === 'object' && i in o
 
-      const cheapest = filteredByTitle.reduce((prev, curr) => prev.priceInCents < curr.priceInCents ? prev : curr)
+        return (
+          (this.length &&
+            this.reduce((prev: any, curr: any) => {
+              const prevOk = checker(prev, attrib)
+              const currOk = checker(curr, attrib)
 
-      //https://stackoverflow.com/questions/8864430/compare-javascript-array-of-objects-to-get-min-max
+              if (!prevOk && !currOk) return {} // No valid attributes
+              if (!prevOk) return curr // If prev is invalid, return curr
+              if (!currOk) return prev // If curr is invalid, return prev
 
-      const aa = Object.defineProperties(Array.prototype, {
-        max: {
-        configurable: true,
-        enumerable: false,
-        value: function () {return Math.max(...this)},
-        writable: true
-      },
-        min: {
-        configurable: true,
-        enumerable: false,
-        value: function () {return Math.min(...this)},
-        writable: true
+              return prev[attrib] < curr[attrib] ? prev : curr // Return the object with the lower cost
+            })) ||
+          null
+        )
       }
-    })
+
+      const minPriceInCents = filteredByTitle.hasMin('priceInCents')
+      if (minPriceInCents) setMinPrice(minPriceInCents)
 
       const groupedByStore = filteredByTitle.reduce(
         (acc, product) => {
@@ -85,6 +94,7 @@ export default function ProductsPage() {
       setFilteredProducts(products)
       setGroupStore({})
       setGroupState({})
+      setMinPrice(undefined)
       setStores(products.map((a) => a.store))
     }
   }, [searchQuery])
@@ -133,6 +143,18 @@ export default function ProductsPage() {
         </ul>
       ) : (
         <b>No product found</b>
+      )}
+
+      <br />
+
+      <h3>Cheapest product</h3>
+      {!minPrice ? (
+        <b>No product available</b>
+      ) : (
+        <p>
+          {minPrice.title} | {minPrice.store} | ${minPrice.priceInCents} |{' '}
+          {minPrice.location}
+        </p>
       )}
 
       <br />
