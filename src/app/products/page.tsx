@@ -14,9 +14,8 @@ export default function ProductsPage() {
   const [searchQuery, setSearchQuery] = useState(query)
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([])
   const [stores, setStores] = useState<string[]>([])
-  const [groupedProducts, setGroupProducts] = useState<Record<string, any[]>>(
-    {}
-  )
+  const [groupedByStore, setGroupStore] = useState<Record<string, any[]>>({})
+  const [groupedByState, setGroupState] = useState<Record<string, any[]>>({})
 
   useEffect(() => {
     const queriedProducts =
@@ -29,12 +28,30 @@ export default function ProductsPage() {
         queriedProducts.includes(item.title.trim().toLowerCase())
       )
 
-      const groupedByLocation = filteredByTitle.reduce(
+      const minPrice = Math.min.apply(
+        null,
+        filteredByTitle.map(function (item) {
+          return item.priceInCents
+        })
+      )
+
+      const groupedByStore = filteredByTitle.reduce(
         (acc, product) => {
           if (!acc[product.store]) {
             acc[product.store] = []
           }
           acc[product.store].push(product)
+          return acc
+        },
+        {} as Record<string, any[]>
+      )
+
+      const groupedByState = filteredByTitle.reduce(
+        (acc, product) => {
+          if (!acc[product.location]) {
+            acc[product.location] = []
+          }
+          acc[product.location].push(product)
           return acc
         },
         {} as Record<string, any[]>
@@ -46,10 +63,12 @@ export default function ProductsPage() {
 
       setFilteredProducts(filteredByTitle)
       setStores(uniqueStores)
-      setGroupProducts(groupedByLocation)
+      setGroupStore(groupedByStore)
+      setGroupState(groupedByState)
     } else {
       setFilteredProducts(products)
-      setGroupProducts({})
+      setGroupStore({})
+      setGroupState({})
       setStores(products.map((a) => a.store))
     }
   }, [searchQuery])
@@ -103,7 +122,7 @@ export default function ProductsPage() {
       <br />
 
       <h3>Available Stores: ({availableStores})</h3>
-      {stores.length > 0 && Object.keys(groupedProducts).length > 0 ? (
+      {stores.length > 0 && Object.keys(groupedByStore).length > 0 ? (
         <ul>
           {stores.map((store, index) => (
             <li key={index}>{store}</li>
@@ -115,13 +134,13 @@ export default function ProductsPage() {
 
       <br />
       {/* Display the filtered bands grouped by location */}
-      <h3>Filtered Results:</h3>
-      {Object.keys(groupedProducts).length > 0 ? (
-        Object.keys(groupedProducts).map((store, index) => (
+      <h3>Filtered Results by Store:</h3>
+      {Object.keys(groupedByStore).length > 0 ? (
+        Object.keys(groupedByStore).map((store, index) => (
           <div key={index}>
             <h3>{store}</h3>
             <ul>
-              {groupedProducts[store].map((product, idx) => (
+              {groupedByStore[store].map((product, idx) => (
                 <li key={idx}>
                   {product.title}, {product.priceInCents}
                 </li>
@@ -131,6 +150,26 @@ export default function ProductsPage() {
         ))
       ) : (
         <b>No products found for the selected titles</b>
+      )}
+
+      <br />
+      {/* Display the filtered bands grouped by location */}
+      <h3>Filtered Results by State:</h3>
+      {Object.keys(groupedByState).length > 0 ? (
+        Object.keys(groupedByState).map((state, index) => (
+          <div key={index}>
+            <h3>{state}</h3>
+            <ul>
+              {groupedByState[state].map((product, idx) => (
+                <li key={idx}>
+                  {product.title}, {product.priceInCents}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      ) : (
+        <b>No products in stock in any State</b>
       )}
     </>
   )
