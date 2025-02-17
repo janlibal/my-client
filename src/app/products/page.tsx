@@ -28,12 +28,28 @@ export default function ProductsPage() {
         queriedProducts.includes(item.title.trim().toLowerCase())
       )
 
-      const minPrice = Math.min.apply(
-        null,
-        filteredByTitle.map(function (item) {
-          return item.priceInCents
-        })
-      )
+      const minPrice = filteredByTitle.reduce(function(prev, curr) {
+        return prev.priceInCents < curr.priceInCents ? prev : curr
+      })
+
+      const cheapest = filteredByTitle.reduce((prev, curr) => prev.priceInCents < curr.priceInCents ? prev : curr)
+
+      //https://stackoverflow.com/questions/8864430/compare-javascript-array-of-objects-to-get-min-max
+
+      const aa = Object.defineProperties(Array.prototype, {
+        max: {
+        configurable: true,
+        enumerable: false,
+        value: function () {return Math.max(...this)},
+        writable: true
+      },
+        min: {
+        configurable: true,
+        enumerable: false,
+        value: function () {return Math.min(...this)},
+        writable: true
+      }
+    })
 
       const groupedByStore = filteredByTitle.reduce(
         (acc, product) => {
