@@ -1,6 +1,6 @@
 import { Product } from '../types/products.types'
 
-export const products: Product[] = [
+export const productsX: Product[] = [
   { 
     id: 0, 
     title: 'aaa', 
@@ -490,6 +490,16 @@ const amazon: Product[] = [
       city: 'San Francisco'
     },
   },
+  {
+    id: 23,
+    title: 'Macbook Pro',
+    priceInCents: 6,
+    store: 'amazon',
+    location: {
+      state: 'CA',
+      city: 'San Francisco'
+    },
+  },
 ]
 
-export const stock = [bestbuy, walmart, amazon]
+export const products:Product[][] = [bestbuy, walmart, amazon]
