@@ -52,8 +52,10 @@ export default function ProductsPage() {
         ? searchQuery.split(',').map((genre) => genre.trim().toLowerCase())
         : []
 
+    const allProducts = products.flat()
+
     if (queriedProducts.length > 0) {
-      const filteredByTitle = products.filter((item) =>
+      const filteredByTitle = allProducts.filter((item) =>
         queriedProducts.includes(item.title.trim().toLowerCase())
       )
 
@@ -91,11 +93,11 @@ export default function ProductsPage() {
       setGroupStore(groupedByStore)
       setGroupState(groupedByState)
     } else {
-      setFilteredProducts(products)
+      setFilteredProducts(allProducts)
       setGroupStore({})
       setGroupState({})
       setMinPrice(undefined)
-      setStores(products.map((a) => a.store))
+      setStores(allProducts.map((a) => a.store))
     }
   }, [searchQuery])
 

@@ -52,8 +52,10 @@ export default function ProductsPage() {
         ? searchQuery.split(',').map((genre) => genre.trim().toLowerCase())
         : []
 
+    const allProducts = products.flat()
+
     if (queriedProducts.length > 0) {
-      const filteredByTitle = products.filter((item) =>
+      const filteredByTitle = allProducts.filter((item) =>
         queriedProducts.includes(item.title.trim().toLowerCase())
       )
 
@@ -91,11 +93,11 @@ export default function ProductsPage() {
       setGroupStore(groupedByStore)
       setGroupState(groupedByState)
     } else {
-      setFilteredProducts(products)
+      setFilteredProducts(allProducts)
       setGroupStore({})
       setGroupState({})
       setMinPrice(undefined)
-      setStores(products.map((a) => a.store))
+      setStores(allProducts.map((a) => a.store))
     }
   }, [searchQuery])
 
@@ -133,7 +135,7 @@ export default function ProductsPage() {
       </form>
 
       <h3>Filtered Products {totalProducts}</h3>
-      {filteredProducts.length > 0 && filteredProducts.length !== products.length ? (
+      {filteredProducts.length > 0 && filteredProducts.length !== products.flat().length ? (
         <ul>
           {filteredProducts.map((prd, index) => (
             <li key={index}>
@@ -147,7 +149,7 @@ export default function ProductsPage() {
 
       <br />
 
-      <h3>Cheapest product</h3>
+      <h3>Cheapest product (grouped)</h3>
       {!minPrice ? (
         <b>No product available</b>
       ) : (
@@ -159,7 +161,7 @@ export default function ProductsPage() {
 
       <br />
 
-      <h3>Available Stores: ({availableStores})</h3>
+      <h3>Grouped by store: Available Stores: ({availableStores})</h3>
       {stores.length > 0 && Object.keys(groupedByStore).length > 0 ? (
         <ul>
           {stores.map((store, index) => (
