@@ -3,5 +3,8 @@ export type Product = {
   title: string
   priceInCents: number
   store: string
-  location: string
+  location: {
+    city: string,
+    state: string
+  }
 }
