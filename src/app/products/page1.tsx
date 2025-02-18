@@ -1,149 +1,214 @@
 'use client'
 
-import { products, stock } from '@/api/modules/products/data/products.data'
+import { products } from '@/api/modules/products/data/products.data'
 import { Product } from '@/api/modules/products/types/products.types'
-import { ProductCard } from '@/components/ProductCard'
-import { SearchProducts } from '@/components/SearchProducts'
-import { useSearchParams } from 'next/navigation'
-import router from 'next/router'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
+declare global {
+  interface Array<T> {
+    hasMin(attrib: string): Product | null
+  }
+}
+
+Array.prototype.hasMin = function (
+  this: Product[],
+  attrib: string
+): Product | null {
+  const checker = (o: any, i: string) => typeof o === 'object' && i in o
+
+  return (
+    (this.length &&
+      this.reduce((prev: any, curr: any) => {
+        const prevOk = checker(prev, attrib)
+        const currOk = checker(curr, attrib)
+
+        if (!prevOk && !currOk) return {} // No valid attributes
+        if (!prevOk) return curr // If prev is invalid, return curr
+        if (!currOk) return prev // If curr is invalid, return prev
+
+        return prev[attrib] < curr[attrib] ? prev : curr // Return the object with the lower cost
+      })) ||
+    null
+  )
+}
+
 export default function ProductsPage() {
-  // initialize useState for the data
-  const [productData, setProductData] = useState<Product[]>([])
-
-  // initialise the searchParams hook
-
   const searchParams = useSearchParams()
+  const router = useRouter()
 
-  // Now get the query
+  const query = searchParams.get('q') || ''
 
-  const searchQuery = searchParams && searchParams.get('q')
-
-  /*useEffect(() => {
-    (async () => {
-      const filteredResults: Product[] = await new Promise<Product[]>((resolve) => {
-
-        const filteredProducts: Product[] = stock.map((data) => {
-          const filteredByTitle = data.filter((item) => searchQuery?.includes(item.title))
-          if(filteredByTitle.length === searchQuery?.length) {
-            const store = filteredByTitle[0].store
-            const allMatches = filteredByTitle.every((product) => product.store === store)
-            return allMatches ? filteredByTitle : []
-          }
-          return []
-        }).filter((filteredData) => filteredData.length > 0).flat()
-        resolve(filteredProducts)
-      })
-    }) ()
-  }, [searchQuery])*/
-
-  /*useEffect(() => {
-    const handleSearch = async () => {
-      const filteredResults: Product[] = await new Promise<Product[]>((resolve) => {
-
-        const filteredProducts: Product[] = stock.map((data) => {
-          const filteredByTitle = data.filter((item) => searchQuery?.includes(item.title))
-          if(filteredByTitle.length === searchQuery?.length) {
-            const store = filteredByTitle[0].store
-            const allMatches = filteredByTitle.every((product) => product.store === store)
-            return allMatches ? filteredByTitle : []
-          }
-          return []
-        })
-        .filter((filteredData) => filteredData.length > 0)
-        .flat()
-        setProfileData(filteredProducts)
-        resolve(filteredProducts)
-      })
-      // Update profileData based on search results
-      setProfileData(filteredResults)
-    }
-
-    // Call handleSearch when searchQuery changes
-    handleSearch()
-  }, [searchQuery])*/
+  const [searchQuery, setSearchQuery] = useState(query)
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([])
+  const [stores, setStores] = useState<string[]>([])
+  const [groupedByStore, setGroupStore] = useState<Record<string, any[]>>({})
+  const [groupedByState, setGroupState] = useState<Record<string, any[]>>({})
+  const [minPrice, setMinPrice] = useState<Product | undefined>()
 
   useEffect(() => {
-    if (searchQuery) {
-      const productsWithTitles = products.filter((prod) =>
-        searchQuery.toLowerCase().includes(prod.title.toLowerCase())
+    const queriedProducts =
+      searchQuery.trim() !== ''
+        ? searchQuery.split(',').map((genre) => genre.trim().toLowerCase())
+        : []
+
+    if (queriedProducts.length > 0) {
+      const filteredByTitle = products.filter((item) =>
+        queriedProducts.includes(item.title.trim().toLowerCase())
       )
 
-      if (productsWithTitles.length === searchQuery.length) {
-        const firstProductStore = productsWithTitles[0].store
-        const sameStore = productsWithTitles.filter(
-          (product) => product.store === firstProductStore
-        )
-        const data = sameStore ? productsWithTitles : []
-        setProductData(data)
-      } else {
-        setProductData(productsWithTitles)
-      }
+      const minPriceInCents = filteredByTitle.hasMin('priceInCents')
+      if (minPriceInCents) setMinPrice(minPriceInCents)
+
+      const groupedByStore = filteredByTitle.reduce(
+        (acc, product) => {
+          if (!acc[product.store]) {
+            acc[product.store] = []
+          }
+          acc[product.store].push(product)
+          return acc
+        },
+        {} as Record<string, any[]>
+      )
+
+      const groupedByState = filteredByTitle.reduce(
+        (acc, product) => {
+          if (!acc[product.location.state]) {
+            acc[product.location.state] = []
+          }
+          acc[product.location.state].push(product)
+          return acc
+        },
+        {} as Record<string, any[]>
+      )
+
+      const uniqueStores = [
+        ...new Set(filteredByTitle.map((item) => item.store)),
+      ]
+
+      setFilteredProducts(filteredByTitle)
+      setStores(uniqueStores)
+      setGroupStore(groupedByStore)
+      setGroupState(groupedByState)
     } else {
-      setProductData(products)
+      setFilteredProducts(products)
+      setGroupStore({})
+      setGroupState({})
+      setMinPrice(undefined)
+      setStores(products.map((a) => a.store))
     }
   }, [searchQuery])
 
-  /*useEffect(() => {
-    const handleSearch = () => {
-      // Filter the data based on search query
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value)
+  }
 
-      const filteredByName = products.filter((product) => {
-        if (searchQuery) {
-          return searchQuery.toLowerCase().includes(product.title.toLowerCase())
-        } else {
-          return true
-        }
-      })
+  // Function to handle search form submission
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
 
-      // Update profileData based on search results
-      setProfileData(filteredByName)
+    if (searchQuery.trim() !== '') {
+      router.push(`/products?q=${searchQuery}`) // Update the URL with the new query
+    } else {
+      router.push('/products') // If search is empty, reset the URL (remove query)
     }
+  }
 
-    // Call handleSearch when searchQuery changes
-    handleSearch()
-  }, [searchQuery])*/ // Only rerun the effect if searchQuery changes
+  const totalProducts = filteredProducts.length
+  const availableStores = stores.length
 
-  // get total users
-
-  const showingProducts = productData.length
-  //const sorted = productData.sort(a => a.store)
-  //https://dev.to/ramonak/react-how-to-dynamically-sort-an-array-of-objects-using-the-dropdown-with-react-hooks-195p
   return (
-    <section className="h-[100vh] w-screen px-[2rem] md:px-[6rem] mt-[100px]">
-      <p className="mb-10 ">
-        Showing {showingProducts} {showingProducts > 1 ? 'Products' : 'Product'}
-      </p>
+    <>
+      <h1>Products Page</h1>
 
-      <SearchProducts defaultValue={searchQuery} />
+      {/* Search bar */}
+      <form onSubmit={handleSearchSubmit}>
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={handleSearchChange}
+          placeholder="Search products (e.g., iPhone, Macbook)"
+        />
+        <button type="submit">Search</button>
+      </form>
 
-      {/* // Conditionally render the profile cards */}
+      <h3>Filtered Products {totalProducts}</h3>
+      {filteredProducts.length > 0 && filteredProducts.length !== products.length ? (
+        <ul>
+          {filteredProducts.map((prd, index) => (
+            <li key={index}>
+              {prd.title} | {prd.store} | ${prd.priceInCents}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <b>No product found</b>
+      )}
 
-      <div className="mt-8">
-        {showingProducts === 0 ? (
-          <p>No result returned</p>
-        ) : (
-          // return the profile cards here
+      <br />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-5">
-            {productData.map(({ id, title, priceInCents, store }: Product) => {
-              return (
-                <div key={id}>
-                  <ProductCard
-                    id={id}
-                    title={title}
-                    priceInCents={priceInCents}
-                    store={store}
-                  />
-                </div>
-              )
-            })}
+      <h3>Cheapest product</h3>
+      {!minPrice ? (
+        <b>No product available</b>
+      ) : (
+        <p>
+          {minPrice.title} | {minPrice.store} | ${minPrice.priceInCents} |{' '}
+          {minPrice.location.city}, {minPrice.location.state}
+        </p>
+      )}
+
+      <br />
+
+      <h3>Available Stores: ({availableStores})</h3>
+      {stores.length > 0 && Object.keys(groupedByStore).length > 0 ? (
+        <ul>
+          {stores.map((store, index) => (
+            <li key={index}>{store}</li>
+          ))}
+        </ul>
+      ) : (
+        <b>No stores found for the selected products</b>
+      )}
+
+      <br />
+      {/* Display the filtered bands grouped by location */}
+      <h3>Filtered Results by Store:</h3>
+      {Object.keys(groupedByStore).length > 0 ? (
+        Object.keys(groupedByStore).map((store, index) => (
+          <div key={index}>
+            <h3>{store}</h3>
+            <ul>
+              {groupedByStore[store].map((product, idx) => (
+                <li key={idx}>
+                  {product.title}, ${product.priceInCents}
+                </li>
+              ))}
+            </ul>
           </div>
+        ))
+      ) : (
+        <b>No products found for the selected titles</b>
+      )}
 
-          // End of profile data UI
-        )}
-      </div>
-    </section>
+      <br />
+      {/* Display the filtered bands grouped by location */}
+      <h3>Filtered Results by State:</h3>
+      {Object.keys(groupedByState).length > 0 ? (
+        Object.keys(groupedByState).map((state, index) => (
+          <div key={index}>
+            <h3>{state}</h3>
+            <ul>
+              {groupedByState[state].map((product, idx) => (
+                <li key={idx}>
+                  {product.title}, ${product.priceInCents} at {product.store}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      ) : (
+        <b>No products in stock in any State</b>
+      )}
+    </>
   )
 }
