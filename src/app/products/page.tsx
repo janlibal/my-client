@@ -135,7 +135,8 @@ export default function ProductsPage() {
       </form>
 
       <h3>Filtered Products {totalProducts}</h3>
-      {filteredProducts.length > 0 && filteredProducts.length !== products.flat().length ? (
+      {filteredProducts.length > 0 &&
+      filteredProducts.length !== products.flat().length ? (
         <ul>
           {filteredProducts.map((prd, index) => (
             <li key={index}>
@@ -194,7 +195,7 @@ export default function ProductsPage() {
 
       <br />
       {/* Display the filtered bands grouped by location */}
-      <h3>Filtered Results by State:</h3>
+      <h3>Filtered Results by in-stock (State):</h3>
       {Object.keys(groupedByState).length > 0 ? (
         Object.keys(groupedByState).map((state, index) => (
           <div key={index}>

@@ -4,7 +4,7 @@ export type Product = {
   priceInCents: number
   store: string
   location: {
-    city: string,
+    city: string
     state: string
   }
 }

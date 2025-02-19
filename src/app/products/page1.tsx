@@ -135,7 +135,8 @@ export default function ProductsPage() {
       </form>
 
       <h3>Filtered Products {totalProducts}</h3>
-      {filteredProducts.length > 0 && filteredProducts.length !== products.length ? (
+      {filteredProducts.length > 0 &&
+      filteredProducts.length !== products.length ? (
         <ul>
           {filteredProducts.map((prd, index) => (
             <li key={index}>
