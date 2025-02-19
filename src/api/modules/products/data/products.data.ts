@@ -1,505 +1,364 @@
 import { Product } from '../types/products.types'
 
-export const productsX: Product[] = [
-  { 
-    id: 0, 
-    title: 'aaa', 
-    priceInCents: 0, 
-    store: 'aaa', 
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-      },
-  },
-  {
-    id: 1,
-    title: 'iPhone 12',
-    priceInCents: 400,
-    store: 'bestbuy',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
-  },
-  {
-    id: 2,
-    title: 'iPhone 12 Mini',
-    priceInCents: 400,
-    store: 'bestbuy',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
-  },
-  {
-    id: 3,
-    title: 'iPhone 12 Pro',
-    priceInCents: 400,
-    store: 'bestbuy',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
-  },
-  {
-    id: 4,
-    title: 'iPhone 12 Pro Max',
-    priceInCents: 400,
-    store: 'bestbuy',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
-  },
-  {
-    id: 5,
-    title: 'iPhone 13',
-    priceInCents: 400,
-    store: 'bestbuy',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
-  },
-  {
-    id: 6,
-    title: 'iPhone 13 Mini',
-    priceInCents: 400,
-    store: 'bestbuy',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
-  },
-  {
-    id: 7,
-    title: 'iPhone 13 Pro',
-    priceInCents: 400,
-    store: 'bestbuy',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
-  },
-  {
-    id: 8,
-    title: 'iPhone 13 Pro Max',
-    priceInCents: 400,
-    store: 'bestbuy',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
-  },
-  {
-    id: 9,
-    title: 'iPhone 14',
-    priceInCents: 400,
-    store: 'bestbuy',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
-  },
-  {
-    id: 10,
-    title: 'iPhone 14 Plus',
-    priceInCents: 400,
-    store: 'bestbuy',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
-  },
-  {
-    id: 11,
-    title: 'iPhone 14 Pro',
-    priceInCents: 400,
-    store: 'bestbuy',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
-  },
-  {
-    id: 12,
-    title: 'iPhone 14 Pro Max',
-    priceInCents: 400,
-    store: 'bestbuy',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
-  },
-  {
-    id: 13,
-    title: 'iPhone 20',
-    priceInCents: 400,
-    store: 'bestbuy',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
-  },
-  {
-    id: 14,
-    title: 'Macbook Pro',
-    priceInCents: 4000,
-    store: 'bestbuy',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
-  },
-  {
-    id: 15,
-    title: 'iPhone 12',
-    priceInCents: 1900,
-    store: 'walmart',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
-  },
-  {
-    id: 16,
-    title: 'iPhone 12 Mini',
-    priceInCents: 100,
-    store: 'walmart',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
-  },
-  {
-    id: 17,
-    title: 'iPhone 20',
-    priceInCents: 100,
-    store: 'walmart',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
-  },
-  {
-    id: 18,
-    title: 'Macbook Air',
-    priceInCents: 100,
-    store: 'walmart',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
-  },
-  {
-    id: 18,
-    title: 'iPhone 13',
-    priceInCents: 1900,
-    store: 'walmart',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
-  },
-  {
-    id: 19,
-    title: 'iPhone 12',
-    priceInCents: 800,
-    store: 'amazon',
-    location: {
-      state: 'NV',
-      city: 'Las Vegas'
-    },
-  },
-  {
-    id: 20,
-    title: 'iPhone 12 Mini',
-    priceInCents: 800,
-    store: 'amazon',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
-  },
-  {
-    id: 21,
-    title: 'iPhone 20',
-    priceInCents: 800,
-    store: 'amazon',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
-  },
-  {
-    id: 22,
-    title: 'Macbook Air',
-    priceInCents: 800,
-    store: 'amazon',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
-  },
-  {
-    id: 23,
-    title: 'Macbook Air',
-    priceInCents: 900,
-    store: 'bestbuy',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
-  },
-  {
-    id: 24,
-    title: 'Macbook Air',
-    priceInCents: 900,
-    store: 'bestbuy',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
-  },
-]
-
 const bestbuy: Product[] = [
   {
     id: 1,
-    title: 'iPhone 12',
-    priceInCents: 4,
+    title: 'iPhone 15',
+    priceInCents: 799,
     store: 'bestbuy',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
+    location: { state: 'CA', city: 'San Francisco' },
   },
   {
     id: 2,
-    title: 'iPhone 12 Mini',
-    priceInCents: 4,
+    title: 'Samsung Galaxy S23',
+    priceInCents: 799,
     store: 'bestbuy',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
+    location: { state: 'TX', city: 'Houston' },
   },
   {
     id: 3,
-    title: 'iPhone 12 Pro',
-    priceInCents: 4,
+    title: 'Google Pixel 8',
+    priceInCents: 699,
     store: 'bestbuy',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
+    location: { state: 'FL', city: 'Miami' },
   },
   {
     id: 4,
-    title: 'iPhone 12 Pro Max',
-    priceInCents: 4,
+    title: 'OnePlus 11',
+    priceInCents: 69,
     store: 'bestbuy',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
+    location: { state: 'NY', city: 'New York' },
   },
   {
     id: 5,
-    title: 'iPhone 13',
-    priceInCents: 4,
+    title: 'Samsung Galaxy Z Flip 5',
+    priceInCents: 999,
     store: 'bestbuy',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
+    location: { state: 'NV', city: 'Las Vegas' },
   },
   {
     id: 6,
-    title: 'iPhone 13 Mini',
-    priceInCents: 4,
+    title: 'Motorola Edge+ (2023)',
+    priceInCents: 899,
     store: 'bestbuy',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
+    location: { state: 'PA', city: 'Philadelphia' },
   },
   {
     id: 7,
-    title: 'iPhone 13 Pro',
-    priceInCents: 4,
+    title: 'Xiaomi Mi 13 Pro',
+    priceInCents: 949,
     store: 'bestbuy',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
+    location: { state: 'WA', city: 'Seattle' },
   },
   {
     id: 8,
-    title: 'iPhone 13 Pro Max',
-    priceInCents: 4,
+    title: 'Oppo Find X5 Pro',
+    priceInCents: 1099,
     store: 'bestbuy',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
-  },
-  {
-    id: 9,
-    title: 'iPhone 14',
-    priceInCents: 4,
-    store: 'bestbuy',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
-  },
-  {
-    id: 10,
-    title: 'iPhone 14 Plus',
-    priceInCents: 4,
-    store: 'bestbuy',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
-  },
-  {
-    id: 11,
-    title: 'iPhone 14 Pro',
-    priceInCents: 4,
-    store: 'bestbuy',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
-  },
-  {
-    id: 12,
-    title: 'iPhone 14 Pro Max',
-    priceInCents: 4,
-    store: 'bestbuy',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
-  },
-  {
-    id: 13,
-    title: 'iPhone 20',
-    priceInCents: 4,
-    store: 'bestbuy',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
-  },
-  {
-    id: 14,
-    title: 'Macbook Pro',
-    priceInCents: 40,
-    store: 'bestbuy',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
+    location: { state: 'IL', city: 'Chicago' },
   },
 ]
 
 const walmart: Product[] = [
   {
-    id: 15,
-    title: 'iPhone 12',
-    priceInCents: 19,
+    id: 9,
+    title: 'iPhone SE (3rd generation)',
+    priceInCents: 429,
     store: 'walmart',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
+    location: { state: 'CA', city: 'San Francisco' },
+  },
+  {
+    id: 10,
+    title: 'Samsung Galaxy A54',
+    priceInCents: 449,
+    store: 'walmart',
+    location: { state: 'TX', city: 'Dallas' },
+  },
+  {
+    id: 11,
+    title: 'Motorola Moto G Power 2023',
+    priceInCents: 199,
+    store: 'walmart',
+    location: { state: 'FL', city: 'Orlando' },
+  },
+  {
+    id: 12,
+    title: 'Google Pixel 6a',
+    priceInCents: 299,
+    store: 'walmart',
+    location: { state: 'NY', city: 'Buffalo' },
+  },
+  {
+    id: 13,
+    title: 'Nokia G50',
+    priceInCents: 199,
+    store: 'walmart',
+    location: { state: 'NV', city: 'Reno' },
+  },
+  {
+    id: 14,
+    title: 'Samsung Galaxy Z Fold 5',
+    priceInCents: 1799,
+    store: 'walmart',
+    location: { state: 'PA', city: 'Pittsburgh' },
+  },
+  {
+    id: 15,
+    title: 'OnePlus Nord N200',
+    priceInCents: 239,
+    store: 'walmart',
+    location: { state: 'WA', city: 'Tacoma' },
   },
   {
     id: 16,
-    title: 'iPhone 12 Mini',
-    priceInCents: 1,
+    title: 'LG Stylo 6',
+    priceInCents: 229,
     store: 'walmart',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
+    location: { state: 'IL', city: 'Aurora' },
   },
+]
+
+const target: Product[] = [
   {
     id: 17,
-    title: 'iPhone 20',
-    priceInCents: 1,
-    store: 'walmart',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
+    title: 'iPhone 14',
+    priceInCents: 799,
+    store: 'target',
+    location: { state: 'CA', city: 'Sacramento' },
   },
   {
     id: 18,
-    title: 'Macbook Air',
-    priceInCents: 1,
-    store: 'walmart',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
+    title: 'Samsung Galaxy A14',
+    priceInCents: 249,
+    store: 'target',
+    location: { state: 'TX', city: 'Austin' },
+  },
+  {
+    id: 19,
+    title: 'Google Pixel 7',
+    priceInCents: 599,
+    store: 'target',
+    location: { state: 'FL', city: 'Tampa' },
+  },
+  {
+    id: 20,
+    title: 'Samsung Galaxy S23 Ultra',
+    priceInCents: 1199,
+    store: 'target',
+    location: { state: 'NY', city: 'Brooklyn' },
+  },
+  {
+    id: 21,
+    title: 'Motorola Moto G Stylus 5G',
+    priceInCents: 299,
+    store: 'target',
+    location: { state: 'NV', city: 'Henderson' },
+  },
+  {
+    id: 22,
+    title: 'OnePlus 9 Pro',
+    priceInCents: 999,
+    store: 'target',
+    location: { state: 'PA', city: 'Allentown' },
+  },
+  {
+    id: 23,
+    title: 'Nokia 5.4',
+    priceInCents: 229,
+    store: 'target',
+    location: { state: 'WA', city: 'Spokane' },
+  },
+  {
+    id: 24,
+    title: 'Motorola Edge 40',
+    priceInCents: 499,
+    store: 'target',
+    location: { state: 'IL', city: 'Naperville' },
   },
 ]
 
 const amazon: Product[] = [
   {
-    id: 19,
-    title: 'iPhone 12',
-    priceInCents: 8,
+    id: 25,
+    title: 'iPhone 15 Pro',
+    priceInCents: 999,
     store: 'amazon',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
+    location: { state: 'CA', city: 'San Diego' },
   },
   {
-    id: 20,
-    title: 'iPhone 12 Mini',
-    priceInCents: 8,
+    id: 26,
+    title: 'Samsung Galaxy S23 Ultra',
+    priceInCents: 1199,
     store: 'amazon',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
+    location: { state: 'TX', city: 'San Antonio' },
   },
   {
-    id: 21,
-    title: 'iPhone 20',
-    priceInCents: 8,
+    id: 27,
+    title: 'Google Pixel 7a',
+    priceInCents: 449,
     store: 'amazon',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
+    location: { state: 'FL', city: 'Jacksonville' },
   },
   {
-    id: 22,
-    title: 'Macbook Air',
-    priceInCents: 8,
+    id: 28,
+    title: 'OnePlus 10 Pro',
+    priceInCents: 899,
     store: 'amazon',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
+    location: { state: 'NY', city: 'Rochester' },
   },
   {
-    id: 23,
-    title: 'Macbook Pro',
-    priceInCents: 6,
+    id: 29,
+    title: 'Xiaomi 12T Pro',
+    priceInCents: 849,
     store: 'amazon',
-    location: {
-      state: 'CA',
-      city: 'San Francisco'
-    },
+    location: { state: 'NV', city: 'Carson City' },
+  },
+  {
+    id: 30,
+    title: 'Oppo Reno 8',
+    priceInCents: 499,
+    store: 'amazon',
+    location: { state: 'PA', city: 'Scranton' },
+  },
+  {
+    id: 31,
+    title: 'Sony Xperia 1 IV',
+    priceInCents: 1299,
+    store: 'amazon',
+    location: { state: 'WA', city: 'Bellevue' },
+  },
+  {
+    id: 32,
+    title: 'Realme GT 2 Pro',
+    priceInCents: 799,
+    store: 'amazon',
+    location: { state: 'IL', city: 'Peoria' },
   },
 ]
 
-export const products:Product[][] = [bestbuy, walmart, amazon]
+const costco: Product[] = [
+  {
+    id: 33,
+    title: 'iPhone 15',
+    priceInCents: 799,
+    store: 'costco',
+    location: { state: 'CA', city: 'Fresno' },
+  },
+  {
+    id: 34,
+    title: 'Samsung Galaxy Z Flip 5',
+    priceInCents: 999,
+    store: 'costco',
+    location: { state: 'TX', city: 'El Paso' },
+  },
+  {
+    id: 35,
+    title: 'Motorola Moto G Power 2023',
+    priceInCents: 199,
+    store: 'costco',
+    location: { state: 'FL', city: 'Fort Lauderdale' },
+  },
+  {
+    id: 36,
+    title: 'OnePlus 9 Pro',
+    priceInCents: 999,
+    store: 'costco',
+    location: { state: 'NY', city: 'Syracuse' },
+  },
+  {
+    id: 37,
+    title: 'Samsung Galaxy A54',
+    priceInCents: 449,
+    store: 'costco',
+    location: { state: 'NV', city: 'Henderson' },
+  },
+  {
+    id: 38,
+    title: 'Google Pixel 7 Pro',
+    priceInCents: 899,
+    store: 'costco',
+    location: { state: 'PA', city: 'Lancaster' },
+  },
+  {
+    id: 39,
+    title: 'Motorola Edge 40',
+    priceInCents: 499,
+    store: 'costco',
+    location: { state: 'WA', city: 'Vancouver' },
+  },
+  {
+    id: 40,
+    title: 'Xiaomi Mi 13 Pro',
+    priceInCents: 949,
+    store: 'costco',
+    location: { state: 'IL', city: 'Evanston' },
+  },
+]
+
+const samsclub: Product[] = [
+  {
+    id: 41,
+    title: 'iPhone 14 Pro',
+    priceInCents: 1099,
+    store: 'samsclub',
+    location: { state: 'CA', city: 'Long Beach' },
+  },
+  {
+    id: 42,
+    title: 'Samsung Galaxy Z Fold 5',
+    priceInCents: 1799,
+    store: 'samsclub',
+    location: { state: 'TX', city: 'Fort Worth' },
+  },
+  {
+    id: 43,
+    title: 'Google Pixel 8',
+    priceInCents: 699,
+    store: 'samsclub',
+    location: { state: 'FL', city: 'Tallahassee' },
+  },
+  {
+    id: 44,
+    title: 'OnePlus 11',
+    priceInCents: 699,
+    store: 'samsclub',
+    location: { state: 'NY', city: 'Albany' },
+  },
+  {
+    id: 45,
+    title: 'Motorola Edge+ 2023',
+    priceInCents: 899,
+    store: 'samsclub',
+    location: { state: 'NV', city: 'Mesquite' },
+  },
+  {
+    id: 46,
+    title: 'Nokia G50',
+    priceInCents: 199,
+    store: 'samsclub',
+    location: { state: 'PA', city: 'Erie' },
+  },
+  {
+    id: 47,
+    title: 'Xiaomi Redmi Note 12',
+    priceInCents: 249,
+    store: 'samsclub',
+    location: { state: 'WA', city: 'Bellingham' },
+  },
+  {
+    id: 48,
+    title: 'Asus ZenFone 9',
+    priceInCents: 699,
+    store: 'samsclub',
+    location: { state: 'IL', city: 'Naperville' },
+  },
+]
+
+export const products: Product[][] = [
+  bestbuy,
+  walmart,
+  target,
+  amazon,
+  costco,
+  samsclub,
+]
