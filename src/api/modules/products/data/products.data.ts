@@ -2,6 +2,13 @@ import { Product } from '../types/products.types'
 
 const bestbuy: Product[] = [
   {
+    id: 0,
+    title: 'iPhone 12',
+    priceInCents: 399,
+    store: 'bestbuy',
+    location: { state: 'CA', city: 'San Francisco' },
+  },
+  {
     id: 1,
     title: 'iPhone 15',
     priceInCents: 799,
@@ -238,9 +245,16 @@ const amazon: Product[] = [
 
 const costco: Product[] = [
   {
+    id: 99,
+    title: 'iPhone 12',
+    priceInCents: 299,
+    store: 'costco',
+    location: { state: 'CA', city: 'San Francisco' },
+  },
+  {
     id: 33,
     title: 'iPhone 15',
-    priceInCents: 799,
+    priceInCents: 499,
     store: 'costco',
     location: { state: 'CA', city: 'Fresno' },
   },

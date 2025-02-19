@@ -150,7 +150,7 @@ export default function ProductsPage() {
 
       <br />
 
-      <h3>Cheapest product (grouped)</h3>
+      <h3>Cheapest product (ONE)</h3>
       {!minPrice ? (
         <b>No product available</b>
       ) : (
