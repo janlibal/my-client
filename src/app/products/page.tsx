@@ -33,6 +33,8 @@ Array.prototype.hasMin = function (
   )
 }
 
+type GroupedProducts = Record<string, Record<string, Record<string, Product[]>>>
+
 export default function ProductsPage() {
   const searchParams = useSearchParams()
   const router = useRouter()
@@ -44,6 +46,7 @@ export default function ProductsPage() {
   const [stores, setStores] = useState<string[]>([])
   const [groupedByStore, setGroupStore] = useState<Record<string, any[]>>({})
   const [groupedByState, setGroupState] = useState<Record<string, any[]>>({})
+  const [groupedByLocation, setGroupLocation] = useState<GroupedProducts>({})
   const [minPrice, setMinPrice] = useState<Product | undefined>()
 
   useEffect(() => {
@@ -84,6 +87,30 @@ export default function ProductsPage() {
         {} as Record<string, any[]>
       )
 
+      const groupedByLocation: GroupedProducts = filteredByTitle.reduce(
+        (acc, product) => {
+          const { id, title, priceInCents, store, location } = product
+          const { state, city } = location
+
+          if (!acc[store]) {
+            acc[store] = {}
+          }
+
+          if (!acc[store][state]) {
+            acc[store][state] = {}
+          }
+
+          if (!acc[store][state][city]) {
+            acc[store][state][city] = []
+          }
+
+          acc[store][state][city].push(product)
+
+          return acc
+        },
+        {} as GroupedProducts
+      )
+
       const uniqueStores = [
         ...new Set(filteredByTitle.map((item) => item.store)),
       ]
@@ -92,10 +119,12 @@ export default function ProductsPage() {
       setStores(uniqueStores)
       setGroupStore(groupedByStore)
       setGroupState(groupedByState)
+      setGroupLocation(groupedByLocation)
     } else {
       setFilteredProducts(allProducts)
       setGroupStore({})
       setGroupState({})
+      setGroupLocation({})
       setMinPrice(undefined)
       setStores(allProducts.map((a) => a.store))
     }
@@ -183,7 +212,8 @@ export default function ProductsPage() {
             <ul>
               {groupedByStore[store].map((product, idx) => (
                 <li key={idx}>
-                  {product.title}, ${product.priceInCents}
+                  {product.title}, ${product.priceInCents}, (
+                  {product.location.city}, {product.location.state})
                 </li>
               ))}
             </ul>
@@ -195,7 +225,7 @@ export default function ProductsPage() {
 
       <br />
       {/* Display the filtered bands grouped by location */}
-      <h3>Filtered Results by in-stock (State):</h3>
+      <h3>Filtered Results by State:</h3>
       {Object.keys(groupedByState).length > 0 ? (
         Object.keys(groupedByState).map((state, index) => (
           <div key={index}>
@@ -211,6 +241,46 @@ export default function ProductsPage() {
         ))
       ) : (
         <b>No products in stock in any State</b>
+      )}
+
+      <br />
+      {/* Display the filtered bands grouped by location */}
+      <h3>Filtered products by location:</h3>
+      {Object.keys(groupedByLocation).length > 0 ? (
+        Object.keys(groupedByLocation).map((store, storeIndex) => (
+          <div key={storeIndex}>
+            <h3>{store}</h3>
+            <ul>
+              {Object.keys(groupedByLocation[store]).map(
+                (state, stateIndex) => (
+                  <li key={stateIndex}>
+                    <strong>{state}</strong>
+                    <ul>
+                      {Object.keys(groupedByLocation[store][state]).map(
+                        (city, cityIndex) => (
+                          <li key={cityIndex}>
+                            <strong>{city}</strong>:
+                            <ul>
+                              {groupedByLocation[store][state][city].map(
+                                (product, bandIndex) => (
+                                  <li key={bandIndex}>
+                                    {product.title}, ${product.priceInCents}
+                                  </li>
+                                )
+                              )}
+                            </ul>
+                          </li>
+                        )
+                      )}
+                    </ul>
+                  </li>
+                )
+              )}
+            </ul>
+          </div>
+        ))
+      ) : (
+        <b>No locations found for the selected products</b>
       )}
     </>
   )
