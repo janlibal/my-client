@@ -6,7 +6,14 @@ const bestbuy: Product[] = [
     title: 'iPhone 12',
     priceInCents: 399,
     store: 'bestbuy',
-    location: { state: 'CA', city: 'San Francisco' },
+    location: { state: 'MA', city: 'Providence' },
+  },
+  {
+    id: 0,
+    title: 'iPhone 12',
+    priceInCents: 399,
+    store: 'bestbuy',
+    location: { state: 'CA', city: 'Kentfield' },
   },
   {
     id: 1,
