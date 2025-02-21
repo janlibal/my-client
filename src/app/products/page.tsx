@@ -46,6 +46,7 @@ export default function ProductsPage() {
   const [stores, setStores] = useState<string[]>([])
   const [groupedByStore, setGroupStore] = useState<Record<string, any[]>>({})
   const [groupedByState, setGroupState] = useState<Record<string, any[]>>({})
+  const [groupedByRetailer, setGroupRetailer] = useState<GroupedProducts>({})
   const [groupedByLocation, setGroupLocation] = useState<GroupedProducts>({})
   const [minPrice, setMinPrice] = useState<Product | undefined>()
 
@@ -87,7 +88,7 @@ export default function ProductsPage() {
         {} as Record<string, any[]>
       )
 
-      const groupedByLocation: GroupedProducts = filteredByTitle.reduce((acc, product) => {
+      const groupedByRetailer: GroupedProducts = filteredByTitle.reduce((acc, product) => {
         const { id, title, priceInCents, store, location } = product
         const { state, city } = location
         
@@ -108,6 +109,27 @@ export default function ProductsPage() {
         return acc
       }, {} as GroupedProducts)
 
+      const groupedByLocation: GroupedProducts = filteredByTitle.reduce((acc, product) => {
+        const { id, title, priceInCents, store, location } = product
+        const { state, city } = location
+        
+        if (!acc[state]) {
+          acc[state] = {}
+        }
+
+        if (!acc[state][city]) {
+          acc[state][city] = {}
+        }
+
+        if (!acc[state][city][store]) {
+          acc[state][city][store] = []
+        }
+
+        acc[state][city][store].push(product)
+
+        return acc
+      }, {} as GroupedProducts)
+
       const uniqueStores = [
         ...new Set(filteredByTitle.map((item) => item.store)),
       ]
@@ -116,11 +138,13 @@ export default function ProductsPage() {
       setStores(uniqueStores)
       setGroupStore(groupedByStore)
       setGroupState(groupedByState)
+      setGroupRetailer(groupedByRetailer)
       setGroupLocation(groupedByLocation)
     } else {
       setFilteredProducts(allProducts)
       setGroupStore({})
       setGroupState({})
+      setGroupRetailer({})
       setGroupLocation({})
       setMinPrice(undefined)
       setStores(allProducts.map((a) => a.store))
@@ -240,23 +264,23 @@ export default function ProductsPage() {
       )}
 
       <br />
-      {/* Display the filtered bands grouped by location */}
-      <h3>Filtered products by retailer/location:</h3>
-      {Object.keys(groupedByLocation).length > 0 ? (
-        Object.keys(groupedByLocation).map((store, storeIndex) => (
+      {/* Display the filtered bands grouped by retailer */}
+      <h3>Filtered products by retailer:</h3>
+      {Object.keys(groupedByRetailer).length > 0 ? (
+        Object.keys(groupedByRetailer).map((store, storeIndex) => (
           <div key={storeIndex}>
             <h3>{store}</h3>
             <ul>
-              {Object.keys(groupedByLocation[store]).map((state, stateIndex) => (
+              {Object.keys(groupedByRetailer[store]).map((state, stateIndex) => (
                 <li key={stateIndex}>
                   <strong>{state}</strong>
                   <ul>
-                    {Object.keys(groupedByLocation[store][state]).map((city, cityIndex) => (
+                    {Object.keys(groupedByRetailer[store][state]).map((city, cityIndex) => (
                       <li key={cityIndex}>
                         <strong>{city}</strong>:
                         <ul>
-                          {groupedByLocation[store][state][city].map((product, bandIndex) => (
-                            <li key={bandIndex}>
+                          {groupedByRetailer[store][state][city].map((product, productIndex) => (
+                            <li key={productIndex}>
                               {product.title}, ${product.priceInCents}
                             </li>
                           ))}
@@ -270,7 +294,41 @@ export default function ProductsPage() {
           </div>
         ))
       ) : (
-        <b>No locations found for the searched products</b>
+        <b>No availability found for the searched products</b>
+      )}
+
+      <br />
+      {/* Display the filtered bands grouped by location */}
+      <h3>Filtered products by location:</h3>
+      {Object.keys(groupedByLocation).length > 0 ? (
+        Object.keys(groupedByLocation).map((state, stateIndex) => (
+          <div key={stateIndex}>
+            <h3>{state}</h3>
+            <ul>
+              {Object.keys(groupedByLocation[state]).map((city, cityIndex) => (
+                <li key={cityIndex}>
+                  <strong>{city}</strong>
+                  <ul>
+                    {Object.keys(groupedByLocation[state][city]).map((store, storeIndex) => (
+                      <li key={storeIndex}>
+                        <strong>{store}</strong>:
+                        <ul>
+                          {groupedByLocation[state][city][store].map((product, productIndex) => (
+                            <li key={productIndex}>
+                              {product.title}, ${product.priceInCents}
+                            </li>
+                          ))}
+                        </ul>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      ) : (
+        <b>No availability found for the searched products</b>
       )}
     </>
   )
