@@ -16,7 +16,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <nav className="top-nav">
-          <div className="nav-text-large">smartBUY-POC</div>
+          <div className="nav-text-large">smartbuy</div>
           <ul className="nav-list">
             <li>
               <Link href="/products">Products</Link>
