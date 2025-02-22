@@ -3,7 +3,7 @@ import './styles.css'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'My-Client',
+  title: 'My-Client poc',
 }
 
 export default function RootLayout({
@@ -15,7 +15,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <nav className="top-nav">
-          <div className="nav-text-large">smartBUY</div>
+          <div className="nav-text-large">smartBUY-POC</div>
           <ul className="nav-list">
             <li>
               <Link href="/bands">Bands</Link>
