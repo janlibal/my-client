@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import './styles.css'
+import '../styles/styles.css'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
@@ -12,6 +12,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
+
     <html lang="en">
       <body>
         <nav className="top-nav">
@@ -20,10 +21,14 @@ export default function RootLayout({
             <li>
               <Link href="/products">Products</Link>
             </li>
+            <li>
+              <Link href="/">Home</Link>
+            </li>
           </ul>
         </nav>
         <div className="container">{children}</div>
       </body>
     </html>
+    
   )
 }
